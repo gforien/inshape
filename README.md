@@ -1,13 +1,14 @@
-# template-project :computer::satellite::video_game::globe_with_meridians::package::zap:
+# inshape
+
+#### A Miro plugin for converting a PNG/JPEG diagram into coloured shapes and text
+#### It uses image processing and OCR with Javascript client-side libraries
+
+<!--- Here are technologies used
 
 ![](https://img.shields.io/badge/badge-content-blue)
 [![](https://travis-ci.org/gforien/template-repo.svg?branch=master)](https://travis-ci.org/gforien/template-repo)
 ![](https://img.shields.io/github/license/gforien/template-repository)
 
-
-#### Here is a simple description of what it does
-
-<!--- Here are technologies used
 <p style = text-align:center;>
     <img  src="https://upload.wikimedia.org/wikipedia/fr/3/38/Guitar_Hero_Logo.png" alt="Guitar Hero" height="145" width="199">
     <img src="https://www.neonmag.fr/content/uploads/2019/04/color-spotify-logo.jpg" alt="Spotify" height="145" width="214">
@@ -16,9 +17,7 @@
 
 
 Or more simply, a GIF of the app functionning
-
 ![](screenshot.gif)
---->
 
 ## Building and launching :construction_worker:
 ```bash
@@ -31,11 +30,14 @@ $ npm start
 - feature 2
 - feature 3
 
+--->
+
 ## Sources :books:
-This project is sampled from :
-- [Link 1](https://wikipedia.com)
-- [Link 2](https://github.com)
+This project is directly inspired from :
+- [Image-Js](https://github.com/image-js/image-js)
+- [Matlab region detection](https://fr.mathworks.com/help/images/ref/regionprops.html)
 
 ##
-#### [Gabriel FORIEN](https://github.com/gforien)
+#### Gabriel FORIEN
+#### 5TC - INSA Lyon
 ![](https://upload.wikimedia.org/wikipedia/commons/b/b9/Logo_INSA_Lyon_%282014%29.svg)
