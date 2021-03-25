@@ -37,8 +37,14 @@ The three main features are
 ## Sources :books:
 This project is directly inspired from :
 - [Image-JS](https://github.com/image-js/image-js)
-- [API documentation for Image-JS](https://image-js.github.io/image-js/)
-- [Matlab region detection](https://fr.mathworks.com/help/images/ref/regionprops.html)
+- [Image-JS live example](https://www.w3schools.com/code/tryit.asp?filename=FVCJLR0VNK33)
+- [Image-JS API documentation](https://image-js.github.io/image-js/)
+- [Tesseract.js](https://github.com/naptha/tesseract.js)
+- [Tesseract examples](https://github.com/naptha/tesseract.js/blob/master/docs/examples.md)
+- [Tesseract supported languages list](https://github.com/naptha/tesseract.js/blob/master/docs/tesseract_lang_list.md)
+- [OCRAD.js](http://antimatter15.com/ocrad.js/demo.html)
+- [hex to rgb](https://www.webfx.com/web-design/hex-to-rgb/)
+- [Region detection example in MATLAB](https://fr.mathworks.com/help/images/ref/regionprops.html)
 - [Colorthief](https://lokeshdhakar.com/projects/color-thief/)
 
 
