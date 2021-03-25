@@ -122,3 +122,10 @@ miro.onReady(async () => {
     }
   });
 });
+
+(async () => {
+
+  let json = await imageURLToMiroShapes("./images/shapes.png");
+  console.log(json);
+
+})();
