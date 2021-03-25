@@ -116,7 +116,7 @@ miro.onReady(async () => {
             width:50,
             height:100,
             style: {shapeType:4, backgroundColor:"#a2b3c4"}
-          })
+          });
         }
       }
     }
