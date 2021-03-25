@@ -101,22 +101,22 @@ const imageURLToMiroShapes = async (url) => {
  ******************************/
 miro.onReady(async () => {
 
-  miro.initialize({
+  miro.initializeInner({
     extensionPoints: {
-      bottomBar: {
-        title: 'Some title',
-        svgIcon: '<circle cx="12" cy="12" r="9" fill="none" fill-rule="evenodd" stroke="currentColor" stroke-width="2"/>',
+      toolbar: {
+        title: 'Inshape',
+        svgIcon: '<circle cx="12" cy="12" r="12" fill="red" fill-rule="evenodd" stroke="currentColor" stroke-width="1"/>',
         onClick: () => {
           alert('Create a shape');
-          let s = await miro.board.widgets.create({
-            type: 'shape',
-            text: undefined,
-            x:0,
-            y:200,
-            width:50,
-            height:100,
-            style: {shapeType:4, backgroundColor:"#a2b3c4"}
-          });
+          // let s = await miro.board.widgets.create({
+          //   type: 'shape',
+          //   text: undefined,
+          //   x:0,
+          //   y:200,
+          //   width:50,
+          //   height:100,
+          //   style: {shapeType:4, backgroundColor:"#a2b3c4"}
+          // });
         }
       }
     }
