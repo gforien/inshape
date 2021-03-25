@@ -2,7 +2,7 @@
  *        init Tesseract Thread        *
  ***************************************/
 const worker = Tesseract.createWorker({
-  //logger: m => console.log(m)
+  logger: m => console.log(m)
 });
 
 
@@ -23,7 +23,7 @@ const rgbToHex = (r, g, b) => {
  *******************************/
 (async () => {
 
-  let url = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/OSI_Model_v1.svg/500px-OSI_Model_v1.svg.png?uselang=fr";
+  let url = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/OSI_Model_v1.svg/1000px-OSI_Model_v1.svg.png";
   
   //let url = "https://gforien.github.io/inshape/shapes_colors.jpg";
 
@@ -34,31 +34,29 @@ const rgbToHex = (r, g, b) => {
   // IMAGE PROCESSING
   let image = await IJS.Image.load(url);
   let gaussian= image.grey().gaussianFilter({radius:4});
-  let mask= gaussian.mask({threshold: 0.55});
+  let mask= gaussian.mask({threshold: 0.90});
   let roiManager = image.getRoiManager();
   roiManager.fromMask(mask);         
   let rois = roiManager.getRois({positive:false, minSurface:10})
   console.log(rois.length+" shapes detected")
-
-  // OCRAD
-  // console.log("OCRAD:\n"+OCRAD(image))
 
   // Tesseract initialization
   await worker.load();
   await worker.loadLanguage('eng'); //eng+fra
   await worker.initialize('eng');
 
-
   shapes = [];
-  for (const ele of rois) {
+  for (let ele of rois) {
   //rois.forEach(async (ele) => {
-
+    console.log("ele "+ele)
+  
     // coefficient c1 computes shape type (rectangle or circle)
     let shapeType = 0;
     let c1 = ele.surface / (ele.height * ele.width);
     if (c1 > 0.8) shapeType = 3; // it is a rectangle
     else shapeType = 4;     // it is a circle
-
+    console.log("shape type: "+shapeType+" (c1 = "+c1.toFixed(2)+")");
+  
     // histograms compute dominant color
     let croppedImage = image.crop({
       x: ele.minX,
@@ -68,8 +66,9 @@ const rgbToHex = (r, g, b) => {
     });
     let histograms = croppedImage.getHistograms();
     let dominantColorRGB = histograms.map(x => x.indexOf(Math.max(...x)));
-    let dominantColorHex = "#"+rgbToHex(...dominantColorRGB);
-
+    let dominantColorHex = rgbToHex(...dominantColorRGB);
+    console.log("dominant color: "+dominantColorHex);
+  
     // Tesseract recognizes text in the cropped image
     let OCR_Rectangle = {
       left: ele.minX,
@@ -77,25 +76,27 @@ const rgbToHex = (r, g, b) => {
       width: ele.width,
       height: ele.height
     };
-    
-    //let { data: { OCR_text } } = await worker.recognize(url, { rectangle: OCR_Rectangle });
-    console.log(OCR_Rectangle);
-
+    let { data: { OCR_Text } } = await worker.recognize(url, { rectangle: OCR_Rectangle });
+    console.log(OCR_Text)
+  
+    // OCRAD
+    //console.log("OCRAD:\n"+OCRAD(croppedImage));
+  
     shapes.push({
       type: 'shape',
-      //text: '4',
+      text: OCR_Text,
       x: ele.minX,
       y: ele.maxX,
       width: ele.width,
       height: ele.height,
       style: {
-        backgroundColor:dominantColorHex,
-        shapeType:shapeType}
+        backgroundColor: dominantColorHex,
+        shapeType: shapeType}
     });
   }
-
+  
   await worker.terminate();
-
-  console.log(shapes);
+  
   //let s = await miro.board.widgets.create(shapes)
-})();
+  
+  })();
