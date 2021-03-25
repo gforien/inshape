@@ -1,5 +1,8 @@
 # inshape🔴🟠🟡
 
+![https://gforien.github.io/inshape/](https://img.shields.io/badge/open-Github%20Pages-blue)
+![https://jsfiddle.net/to8ucfed/11/](https://img.shields.io/badge/open-JSFiddle-blueviolet)
+
 #### A Miro plugin for converting a PNG/JPEG diagram into coloured shapes and text
 #### It uses image processing and OCR with Javascript client-side libraries
 
