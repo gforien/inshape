@@ -21,12 +21,10 @@ const rgbToHex = (r, g, b) => {
 /*******************************
  *        main function        *
  *******************************/
-(async () => {
+const imageURLToMiroShapes = async (url) => {
 
-  let url = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/OSI_Model_v1.svg/1000px-OSI_Model_v1.svg.png";
-  
-  //let url = "https://gforien.github.io/inshape/shapes_colors.jpg";
-
+  // let url = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/OSI_Model_v1.svg/1000px-OSI_Model_v1.svg.png";
+  // let url = "https://gforien.github.io/inshape/shapes_colors.jpg";
   // let image = await IJS.Image.load(document.getElementById('color').src);
   // let image = await IJS.Image.load("https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Diagram_of_a_red_blood_cell_CRUK_467.svg/500px-Diagram_of_a_red_blood_cell_CRUK_467.svg.png");
   // let image = await IJS.Image.load("https://gforien.github.io/inshape/shapes_colors.jpg");
@@ -47,8 +45,6 @@ const rgbToHex = (r, g, b) => {
 
   shapes = [];
   for (let ele of rois) {
-  //rois.forEach(async (ele) => {
-    console.log("ele "+ele)
   
     // coefficient c1 computes shape type (rectangle or circle)
     let shapeType = 0;
@@ -79,7 +75,7 @@ const rgbToHex = (r, g, b) => {
     let { data: { OCR_Text } } = await worker.recognize(url, { rectangle: OCR_Rectangle });
     console.log(OCR_Text)
   
-    // OCRAD
+    // OCRAD too could recognize text in the cropped image
     //console.log("OCRAD:\n"+OCRAD(croppedImage));
   
     shapes.push({
@@ -97,6 +93,32 @@ const rgbToHex = (r, g, b) => {
   
   await worker.terminate();
   
-  //let s = await miro.board.widgets.create(shapes)
-  
-  })();
+  return shapes
+}
+
+/******************************
+ *        miro wrapper        *
+ ******************************/
+miro.onReady(async () => {
+
+  miro.initialize({
+    extensionPoints: {
+      bottomBar: {
+        title: 'Some title',
+        svgIcon: '<circle cx="12" cy="12" r="9" fill="none" fill-rule="evenodd" stroke="currentColor" stroke-width="2"/>',
+        onClick: () => {
+          alert('Create a shape');
+          let s = await miro.board.widgets.create({
+            type: 'shape',
+            text: undefined,
+            x:0,
+            y:200,
+            width:50,
+            height:100,
+            style: {shapeType:4, backgroundColor:"#a2b3c4"}
+          })
+        }
+      }
+    }
+  });
+});
