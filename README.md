@@ -1,4 +1,4 @@
-# inshape
+# inshape🔴🟠🟡
 
 #### A Miro plugin for converting a PNG/JPEG diagram into coloured shapes and text
 #### It uses image processing and OCR with Javascript client-side libraries
@@ -25,17 +25,22 @@ $ npm install
 $ npm start
 ```
 
-## Features :sparkles:
-- feature 1
-- feature 2
-- feature 3
 
 --->
+## Features
+The three main features are
+- shape recognition i.e. get a Region of Interest (ROI) and tell wether it's a rectangle or a circle
+- color recognition i.e  get multiple 
+- text recognition => OCR
+
 
 ## Sources :books:
 This project is directly inspired from :
-- [Image-Js](https://github.com/image-js/image-js)
+- [Image-JS](https://github.com/image-js/image-js)
+- [API documentation for Image-JS](https://image-js.github.io/image-js/)
 - [Matlab region detection](https://fr.mathworks.com/help/images/ref/regionprops.html)
+- [Colorthief](https://lokeshdhakar.com/projects/color-thief/)
+
 
 ##
 #### Gabriel FORIEN
