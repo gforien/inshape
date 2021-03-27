@@ -210,7 +210,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   let t0 = performance.now()
 
-  let json = await imageURLToMiroShapes("https://gforien.github.io/inshape/static/images/shapes.png");
+  let json = await imageURLToMiroShapes("https://gforien.github.io/inshape/static/images/2.png");
 
   document.getElementById("spinner").style.visibility = "hidden";
   let timeDuration = ((performance.now()-t0)/1000).toFixed(2);
