@@ -5,7 +5,7 @@
  *        init Tesseract Thread        *
  ***************************************/
 const worker = Tesseract.createWorker({
-  //logger: m => console.log(m)
+  // logger: m => console.log(m)
 });
 
 
@@ -42,13 +42,14 @@ const imageURLToMiroShapes = async (url) => {
   let mask= gaussian.mask({threshold: 0.90});
   let roiManager = imageWB.getRoiManager();
   roiManager.fromMask(mask);
-  let roiOptions = {
-    positive:false,                  // ???
+
+  let rois = roiManager.getRois({
+    // positive:false,                  // ???
     minSurface:10,
-    maxWidth: image.width-1,         // filter ROIs that occupy all image
-    maxHeight: image.height-1        // filter ROIs that occupy all image
-  };
-  let rois = roiManager.getRois();
+    // maxWidth: image.width-1,         // filter ROIs that occupy all image
+    // maxHeight: image.height-1        // filter ROIs that occupy all image
+    // minWidth:999
+  });
 
   // output original image
   document.getElementById('original_image_anchor').src = imageWB.toDataURL();
@@ -77,11 +78,19 @@ const imageURLToMiroShapes = async (url) => {
   let shapes = [];
   for (let roi of rois) {
     let row = document.createElement("tr");
+    let surfaceRatio = roi.surface / (roi.height * roi.width);
+    let isSurfaceRatioOK = (surfaceRatio > 0.9 && surfaceRatio != 1);
+    if (!isSurfaceRatioOK) continue;
 
-  
+
     // 1. Cropped image
     let croppedImage = image.crop({x: roi.minX, y: roi.minY, width: roi.width, height: roi.height });
-    row.innerHTML += `<td><img src="${croppedImage.toDataURL()}" style="border: 1px solid black; max-width: 300px; max-height: 100px;" /></td>`;
+    row.innerHTML += `<td>
+      <img src="${croppedImage.toDataURL()}" style="border: 1px solid black; max-width: 300px; max-height: 100px;" />
+     </td>
+     <td>
+       ${croppedImage.width}x${croppedImage.height} px
+     </td>`;
 
 
     // 2. Shape recognition (rectangle or circle)
@@ -89,8 +98,6 @@ const imageURLToMiroShapes = async (url) => {
     // shapeType is an integer : 3 for a rectangle, 4 for a circle
     let shapeType = 0;
     let shapeTypeStr = "";
-    let surfaceRatio = roi.surface / (roi.height * roi.width);
-    let isSurfaceRatioOK = (surfaceRatio > 0.9 && surfaceRatio != 1);
     if (surfaceRatio >= 0.8) {
       shapeTypeStr = "rectangle";
       shapeType = 3;
@@ -139,17 +146,20 @@ const imageURLToMiroShapes = async (url) => {
       width: roi.width,
       height: roi.height
     };
-    let { data: { OCR_Text } } = await worker.recognize(url, { rectangle: OCR_Rectangle });
+    // console.log(OCR_Rectangle)
+    let OCR = await worker.recognize(url, { rectangle: OCR_Rectangle });
     //let OCR_Text = OCRAD(croppedImage);
-    console.log(`text: ${OCR_Text}`)
-    row.innerHTML += `<td>${OCR_Text}</td>`;
+    OCR.data.text = OCR.data.text.replace('’','');
+    // OCR.data.text = OCR.data.text.replace('↵',' ');
+    // console.log(`text: ${OCR.data.text}`)
+    row.innerHTML += `<td>${OCR.data.text}</td>`;
   
     // OCRAD too could recognize text in the cropped image
     //console.log("OCRAD:\n"+OCRAD(croppedImage));
   
     let miroShape = {
       type: 'shape',
-      text: OCR_Text,
+      text: OCR.data.text,
       x: roi.minX,
       y: roi.maxX,
       width: roi.width,
@@ -170,8 +180,8 @@ const imageURLToMiroShapes = async (url) => {
 
 
     // Apprend to the HTML table
-    if (isSurfaceRatioOK) insertAfter(document.getElementById("table_anchor"), row);
-    else insertAfter(document.getElementById("filtered_out_table_anchor"), row);
+    // if (isSurfaceRatioOK) insertAfter(document.getElementById("table_anchor"), row);
+    // else insertAfter(document.getElementById("filtered_out_table_anchor"), row);
   }
   
   await worker.terminate();
@@ -190,7 +200,7 @@ miro.onReady(async () => {
         title: 'Inshape',
         svgIcon: '<circle cx="12" cy="12" r="12" fill="red" fill-rule="evenodd" stroke="currentColor" stroke-width="1"/>',
         onClick: () => {
-          alert('Create a shape');
+          alert('Create a hello !');
           // let s = await miro.board.widgets.create({
           //   type: 'shape',
           //   text: undefined,
