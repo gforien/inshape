@@ -1,5 +1,6 @@
 "use strict";
-
+// const urlParams = new URLSearchParams(window.location.search);
+// let imagePath = urlParams.get('image');
 /***************************************
  *        init Tesseract Thread        *
  ***************************************/
@@ -98,7 +99,7 @@ const imageURLToMiroShapes = async (url) => {
       shapeTypeStr = "circle";
       shapeType = 4;
     }
-    console.log(`surfaceRatio = ${(surfaceRatio * 100).toFixed(0)}% → it's a ${shapeTypeStr}`);
+    // console.log(`surfaceRatio = ${(surfaceRatio * 100).toFixed(0)}% → it's a ${shapeTypeStr}`);
     row.innerHTML += `
     <td>
       ${(surfaceRatio * 100).toFixed(0)}%
@@ -120,7 +121,7 @@ const imageURLToMiroShapes = async (url) => {
       // console.log(`in channel ${channel}, max = ${Math.max(...channel)} = index ${channel.indexOf(Math.max(...channel))}`);
     }
     let dominantColorHexString = rgbToHexString(...dominantColorRGB);
-    console.log("dominant color: "+dominantColorHexString);
+    // console.log("dominant color: "+dominantColorHexString);
     row.innerHTML += `
     <td style="border-right:hidden; padding-right:0px">
       <div style="background-color:${dominantColorHexString}; border: 1px solid black; width: 30px; height: 30px; display: inline-block;">
@@ -138,8 +139,8 @@ const imageURLToMiroShapes = async (url) => {
       width: roi.width,
       height: roi.height
     };
-    // let { data: { OCR_Text } } = await worker.recognize(url, { rectangle: OCR_Rectangle });
-    let OCR_Text = OCRAD(croppedImage);
+    let { data: { OCR_Text } } = await worker.recognize(url, { rectangle: OCR_Rectangle });
+    //let OCR_Text = OCRAD(croppedImage);
     console.log(`text: ${OCR_Text}`)
     row.innerHTML += `<td>${OCR_Text}</td>`;
   
@@ -210,11 +211,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   let t0 = performance.now()
 
-  let json = await imageURLToMiroShapes("https://gforien.github.io/inshape/static/images/2.png");
+  let imagePath = window.location.search.substring(1);
+  console.log(`Input file: ${imagePath}`);
+  
+  let miroObjectJSON = await imageURLToMiroShapes(imagePath);
 
   document.getElementById("spinner").style.visibility = "hidden";
   let timeDuration = ((performance.now()-t0)/1000).toFixed(2);
   toastr.success("", `Image processed in ${timeDuration} sec`, {closeButton: true, timeOut: "1000"});
 
-  console.log(json);
+  console.log(miroObjectJSON);
 });
