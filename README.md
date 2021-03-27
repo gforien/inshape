@@ -51,7 +51,8 @@ This project is directly inspired from :
 - [hex to rgb](https://www.webfx.com/web-design/hex-to-rgb/)
 - [Region detection example in MATLAB](https://fr.mathworks.com/help/images/ref/regionprops.html)
 - [Colorthief](https://lokeshdhakar.com/projects/color-thief/)
-
+- [Pure CSS spinner](https://jsbin.com/roqakuxebo/)
+- [Toastr](https://github.com/CodeSeven/toastr)
 
 ##
 #### Gabriel FORIEN
