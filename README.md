@@ -16,7 +16,7 @@
 ![](https://img.shields.io/badge/Miro%20SDK-✓-blue)
 
 ![](./static/images/demo.gif)
-*This is **not** real-time. Processing this image takes ~8 sec.*
+*This is **not** real-time. Processing this image takes ~7 sec.*
 <!---
     [Edit in JSFiddle](https://jsfiddle.com/sdljdsfl)
 --->
