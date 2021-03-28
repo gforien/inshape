@@ -80,7 +80,7 @@ const imageURLToMiroShapes = async (url) => {
     let row = document.createElement("tr");
     let surfaceRatio = roi.surface / (roi.height * roi.width);
     let isSurfaceRatioOK = (surfaceRatio > 0.9 && surfaceRatio != 1);
-    if (!isSurfaceRatioOK) continue;
+    // if (!isSurfaceRatioOK) continue;
 
 
     // 1. Cropped image
