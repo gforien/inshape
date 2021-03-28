@@ -22,6 +22,7 @@
 This project is directly inspired from :
 - [Miro developer guide](https://developers.miro.com/docs/getting-started)
 - [Miro sample app](https://github.com/miroapp/app-examples/tree/master/sample-app)
+- [Miro SDK documentation](https://developers.miro.com/docs/the-windowmiro-object)
 - [image-js](https://github.com/image-js/image-js)
 - [image-js live example](https://www.w3schools.com/code/tryit.asp?filename=FVCJLR0VNK33)
 - [image-js API documentation](https://image-js.github.io/image-js/)
