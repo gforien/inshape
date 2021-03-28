@@ -1,0 +1,87 @@
+<html>
+
+<head>
+  <meta charset='utf-8'>
+
+  <!-- Exposes global variable IJS -->
+  <script src="https://www.lactame.com/lib/image-js/0.21.2/image.min.js"></script>
+  <!-- Exposes variable OCRAD -->
+  <script src="./ocrad.js"></script>
+  <!-- Exposes global variable Tesseract -->
+  <script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js'></script>
+  <!-- Exposes global variable miro -->
+  <script src="https://miro.com/app/static/sdk.1.1.js"></script>
+  <!-- Exposes global variable toastr -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+  <!-- Main JS script -->
+  <script src='./index.js'></script>
+
+  <style type="text/css">
+    table, th, td {
+      border: 3px double grey; border-collapse: collapse; padding: 10px; text-align:center; }
+    * {
+      font-family: Lato; }
+    h1 {
+      margin-bottom: 5px; }
+    h3 {
+      margin-top: 30px; margin-bottom: 5px; }
+    #spinner {
+      position: fixed;
+      top: 3%;
+      right: 3%;
+      height:30px;
+      width:30px;
+      margin:0px auto;
+      animation: rotation .6s infinite linear;
+      border:10px solid rgba(0,174,239,.15);
+      border-top:10px solid rgba(0,174,239,.8);
+      border-radius:100%;
+    }
+    @keyframes rotation {
+      from {transform: rotate(0deg);}
+      to {transform: rotate(359deg);}
+    }
+  </style>
+</head>
+
+<body>
+  <h1>InShape</h1>
+  <div id="spinner"></div>
+
+  <h3>1️⃣ Original image (greyed)</h3>
+  <img id="original_image_anchor" width="400px" style="border: 1px solid black;" />
+
+  <h3 id="n_shapes_anchor"></h3>
+  <img id="rois_image_anchor" width="400px" style="border: 1px solid black;" />
+
+  <h3>3️⃣ If a region has a nice surface ratio, we extract (shape, color, text)</h3>
+  <table>
+    <tr id="table_anchor">
+      <th>Cropped image</th>
+      <th>Size</th>
+      <th>Surface ratio</th>
+      <th>Shape recognition</th>
+      <th colspan="2">Dominant color extraction</th>
+      <th>Optical Character Recognition (OCR)</th>
+      <th>Result</th>
+    </tr>
+  </table>
+
+  <h3>4️⃣ Other ROIs are just filtered out, they don't contain anything in terms of image processing</h3>
+  <table>
+    <tr id="filtered_out_table_anchor">
+      <th>Cropped image</th>
+      <th>Size</th>
+      <th>Surface ratio</th>
+      <th>Shape recognition</th>
+      <th colspan="2">Dominant color extraction</th>
+      <th>Optical Character Recognition (OCR)</th>
+      <th>Result</th>
+    </tr>
+  </table>
+</body>
+
+</html>

@@ -1,39 +1,20 @@
-"use strict";
-// const urlParams = new URLSearchParams(window.location.search);
-// let imagePath = urlParams.get('image');
-/***************************************
- *        init Tesseract Thread        *
- ***************************************/
 const worker = Tesseract.createWorker({
   // logger: m => console.log(m)
 });
 
 
-/***************************************
- *        rgb to hex conversion        *
- ***************************************/
 const componentToHex = (c) => {
     let hex = c.toString(16);
     return hex.length == 1 ? "0" + hex : hex;
 }
+
+
 const rgbToHexString = (r, g, b) => {
   return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
-const insertAfter = (node, newNode) => {
-  node.parentNode.insertBefore(newNode, node.nextSibling);
-}
 
 
-/*******************************
- *        main function        *
- *******************************/
 const imageURLToMiroShapes = async (url) => {
-
-  // let url = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/OSI_Model_v1.svg/1000px-OSI_Model_v1.svg.png";
-  // let url = "https://gforien.github.io/inshape/shapes_colors.jpg";
-  // let image = await IJS.Image.load(document.getElementById('color').src);
-  // let image = await IJS.Image.load("https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Diagram_of_a_red_blood_cell_CRUK_467.svg/500px-Diagram_of_a_red_blood_cell_CRUK_467.svg.png");
-  // let image = await IJS.Image.load("https://gforien.github.io/inshape/shapes_colors.jpg");
 
   // IMAGE PROCESSING
   let image = await IJS.Image.load(url);
@@ -51,23 +32,8 @@ const imageURLToMiroShapes = async (url) => {
     // minWidth:999
   });
 
-  // output original image
-  document.getElementById('original_image_anchor').src = imageWB.toDataURL();
-  
   // output count of identified ROIs
   console.log(`${rois.length} shapes detected`);
-  document.getElementById('n_shapes_anchor').innerHTML = `2️⃣ Regions Of Interest → we detect ${rois.length} ROIs`
-
-  // output an image of the ROIs
-  let painted = roiManager.paint({
-    distinctColor: true,
-      alpha: 200,                      // transparency of the painted layer
-      positive:false,                  // ???
-      minSurface:10,
-      maxWidth: image.width-1,         // filter ROIs that occupy all image
-      maxHeight: image.height-1        // filter ROIs that occupy all image
-  });
-  document.getElementById('rois_image_anchor').src = painted.toDataURL();
 
   // Tesseract initialization
   // (!) All the performance problems come from here
@@ -77,7 +43,6 @@ const imageURLToMiroShapes = async (url) => {
 
   let shapes = [];
   for (let roi of rois) {
-    let row = document.createElement("tr");
     let surfaceRatio = roi.surface / (roi.height * roi.width);
     let isSurfaceRatioOK = (surfaceRatio > 0.9 && surfaceRatio != 1);
     if (!isSurfaceRatioOK) continue;
@@ -85,12 +50,6 @@ const imageURLToMiroShapes = async (url) => {
 
     // 1. Cropped image
     let croppedImage = image.crop({x: roi.minX, y: roi.minY, width: roi.width, height: roi.height });
-    row.innerHTML += `<td>
-      <img src="${croppedImage.toDataURL()}" style="border: 1px solid black; max-width: 300px; max-height: 100px;" />
-     </td>
-     <td>
-       ${croppedImage.width}x${croppedImage.height} px
-     </td>`;
 
 
     // 2. Shape recognition (rectangle or circle)
@@ -107,15 +66,8 @@ const imageURLToMiroShapes = async (url) => {
       shapeType = 4;
     }
     // console.log(`surfaceRatio = ${(surfaceRatio * 100).toFixed(0)}% → it's a ${shapeTypeStr}`);
-    row.innerHTML += `
-    <td>
-      ${(surfaceRatio * 100).toFixed(0)}%
-    </td>
-    <td>
-      it's a ${shapeTypeStr}
-    </td>`;
-  
 
+  
 
     // 3. Dominant color extraction
     // Get the RGB histograms maximum i.e. the dominant intensity of red, green, and blue
@@ -129,15 +81,7 @@ const imageURLToMiroShapes = async (url) => {
     }
     let dominantColorHexString = rgbToHexString(...dominantColorRGB);
     // console.log("dominant color: "+dominantColorHexString);
-    row.innerHTML += `
-    <td style="border-right:hidden; padding-right:0px">
-      <div style="background-color:${dominantColorHexString}; border: 1px solid black; width: 30px; height: 30px; display: inline-block;">
-      </div>
-    </td>
-    <td style="padding-left:0px">
-      <b>${dominantColorHexString}</b>
-    </td>`;
-  
+
 
     // Tesseract recognizes text in the cropped image
     let OCR_Rectangle = {
@@ -152,36 +96,20 @@ const imageURLToMiroShapes = async (url) => {
     OCR.data.text = OCR.data.text.replace('’','');
     // OCR.data.text = OCR.data.text.replace('↵',' ');
     // console.log(`text: ${OCR.data.text}`)
-    row.innerHTML += `<td>${OCR.data.text}</td>`;
-  
-    // OCRAD too could recognize text in the cropped image
-    //console.log("OCRAD:\n"+OCRAD(croppedImage));
+
   
     let miroShape = {
       type: 'shape',
       text: OCR.data.text,
       x: roi.minX,
-      y: roi.maxX,
+      y: roi.minY,
       width: roi.width,
       height: roi.height,
       style: {
         backgroundColor: dominantColorHexString,
         shapeType: shapeType}
     };
-    if(isSurfaceRatioOK) {
-      shapes.push(miroShape);
-    }
-    row.innerHTML += `
-    <td>
-      <div style="width:300px; word-break:break-word; font-size:11; font-family:Consolas">
-        ${JSON.stringify(miroShape)}
-      </div>
-    </td>`;
-
-
-    // Apprend to the HTML table
-    // if (isSurfaceRatioOK) insertAfter(document.getElementById("table_anchor"), row);
-    // else insertAfter(document.getElementById("filtered_out_table_anchor"), row);
+    shapes.push(miroShape);
   }
   
   await worker.terminate();
@@ -189,46 +117,20 @@ const imageURLToMiroShapes = async (url) => {
   return shapes
 }
 
-/******************************
- *        miro wrapper        *
- ******************************/
-miro.onReady(async () => {
 
-  miro.initializeInner({
+miro.onReady(() => {
+  miro.initialize({
     extensionPoints: {
-      toolbar: {
-        title: 'Inshape',
-        svgIcon: '<circle cx="12" cy="12" r="12" fill="red" fill-rule="evenodd" stroke="currentColor" stroke-width="1"/>',
-        onClick: () => {
-          alert('Create a hello !');
-          // let s = await miro.board.widgets.create({
-          //   type: 'shape',
-          //   text: undefined,
-          //   x:0,
-          //   y:200,
-          //   width:50,
-          //   height:100,
-          //   style: {shapeType:4, backgroundColor:"#a2b3c4"}
-          // });
-        }
-      }
-    }
+      bottomBar: {
+        title: 'Hi',
+        svgIcon: '<circle cx="12" cy="12" r="9" fill="none" fill-rule="evenodd" stroke="currentColor" stroke-width="2"></circle>',
+        onClick: async () => {
+          console.log("Launch image processing");
+          let json = await imageURLToMiroShapes('https://gforien.github.io/inshape/static/images/osi.png');
+          console.log(json);
+          await miro.board.widgets.create(json);
+        },
+      },
+    },
   });
-});
-
-
-document.addEventListener("DOMContentLoaded", async () => {
-
-  let t0 = performance.now()
-
-  let imagePath = window.location.search.substring(1);
-  console.log(`Input file: ${imagePath}`);
-  
-  let miroObjectJSON = await imageURLToMiroShapes(imagePath);
-
-  document.getElementById("spinner").style.visibility = "hidden";
-  let timeDuration = ((performance.now()-t0)/1000).toFixed(2);
-  toastr.success("", `Image processed in ${timeDuration} sec`, {closeButton: true, timeOut: "1000"});
-
-  console.log(miroObjectJSON);
 });
