@@ -22,9 +22,9 @@
 This project is directly inspired from :
 - [Miro developer guide](https://developers.miro.com/docs/getting-started)
 - [Miro sample app](https://github.com/miroapp/app-examples/tree/master/sample-app)
-- [Image-JS](https://github.com/image-js/image-js)
-- [Image-JS live example](https://www.w3schools.com/code/tryit.asp?filename=FVCJLR0VNK33)
-- [Image-JS API documentation](https://image-js.github.io/image-js/)
+- [image-js](https://github.com/image-js/image-js)
+- [image-js live example](https://www.w3schools.com/code/tryit.asp?filename=FVCJLR0VNK33)
+- [image-js API documentation](https://image-js.github.io/image-js/)
 - [Tesseract.js](https://github.com/naptha/tesseract.js)
 - [Tesseract examples](https://github.com/naptha/tesseract.js/blob/master/docs/examples.md)
 - [Tesseract supported languages list](https://github.com/naptha/tesseract.js/blob/master/docs/tesseract_lang_list.md)
