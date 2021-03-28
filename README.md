@@ -8,12 +8,12 @@
 
 ## Stack
 ![](https://img.shields.io/badge/NodeJS-✓-blue)
+![](https://img.shields.io/badge/Express-✓-blue)
 ![](https://img.shields.io/badge/HTML%20%26%20CSS-✓-blue)
 ![](https://img.shields.io/badge/client--side%20JavaScript-✓-blue)
 ![](https://img.shields.io/badge/image--js-✓-blue)
 ![](https://img.shields.io/badge/Tesseract.js-✓-blue)
 ![](https://img.shields.io/badge/Miro%20SDK-✓-blue)
-![](https://img.shields.io/badge/toastr.js-✓-blue)
 
 <!---
     ![](screenshot.gif)
