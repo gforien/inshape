@@ -96,7 +96,6 @@ const imageURLToMiroShapes = async (url) => {
     };
     // console.log(OCR_Rectangle)
     let OCR = await worker.recognize(url, { rectangle: OCR_Rectangle });
-    //let OCR_Text = OCRAD(croppedImage);
     OCR.data.text = OCR.data.text.replace('’','');
     // OCR.data.text = OCR.data.text.replace('↵',' ');
     // console.log(`text: ${OCR.data.text}`)

@@ -148,14 +148,10 @@ const imageURLToMiroShapes = async (url) => {
     };
     // console.log(OCR_Rectangle)
     let OCR = await worker.recognize(url, { rectangle: OCR_Rectangle });
-    //let OCR_Text = OCRAD(croppedImage);
     OCR.data.text = OCR.data.text.replace('’','');
     // OCR.data.text = OCR.data.text.replace('↵',' ');
     // console.log(`text: ${OCR.data.text}`)
     row.innerHTML += `<td>${OCR.data.text}</td>`;
-  
-    // OCRAD too could recognize text in the cropped image
-    //console.log("OCRAD:\n"+OCRAD(croppedImage));
   
     let miroShape = {
       type: 'shape',
@@ -178,10 +174,9 @@ const imageURLToMiroShapes = async (url) => {
       </div>
     </td>`;
 
-
-    // Apprend to the HTML table
-    // if (isSurfaceRatioOK) insertAfter(document.getElementById("table_anchor"), row);
-    // else insertAfter(document.getElementById("filtered_out_table_anchor"), row);
+    // Append to the HTML table
+    if (isSurfaceRatioOK) insertAfter(document.getElementById("table_anchor"), row);
+    else insertAfter(document.getElementById("filtered_out_table_anchor"), row);
   }
   
   await worker.terminate();
