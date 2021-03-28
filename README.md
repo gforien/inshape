@@ -12,10 +12,10 @@
 ![](https://img.shields.io/badge/Tesseract.js-✓-blue)
 ![](https://img.shields.io/badge/Miro%20SDK-✓-blue)
 
+![](./static/images/demo.gif)
 <!---
     [![](https://img.shields.io/badge/open-Github%20Pages-blue)](https://gforien.github.io/inshape/)
     [![](https://img.shields.io/badge/open-JSFiddle-blueviolet)](https://jsfiddle.net/to8ucfed/11/)
-    ![](screenshot.gif)
     [Edit in JSFiddle](https://jsfiddle.com/sdljdsfl)
 --->
 
@@ -24,6 +24,8 @@ The three main features are
 - shape recognition i.e. get a Region of Interest (ROI) and compute surface ration
 - color extraction  i.e  get the RGB histograms from the ROIs and extract most dominant color
 - optical character recognition (OCR)  i.e. send a ROI to Tesseract.js and voilà !
+
+![](./static/images/osi_extracted.png)
 
 
 ## Build yourself
