@@ -174,9 +174,17 @@ const imageURLToMiroShapes = async (url) => {
       </div>
     </td>`;
 
+    console.log(`${row}`);
+
     // Append to the HTML table
-    if (isSurfaceRatioOK) insertAfter(document.getElementById("table_anchor"), row);
-    else insertAfter(document.getElementById("filtered_out_table_anchor"), row);
+    if (isSurfaceRatioOK) {
+      console.log("append here")
+      insertAfter(document.getElementById("table_anchor"), row);
+    }
+    else {
+      console.log("append there")
+      insertAfter(document.getElementById("filtered_out_table_anchor"), row);
+    }
   }
   
   await worker.terminate();
