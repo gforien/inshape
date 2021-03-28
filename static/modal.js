@@ -111,7 +111,7 @@ const imageURLToMiroShapes = async (url) => {
       style: {
         backgroundColor: dominantColorHexString,
         shapeType: shapeType,
-        fontFamily: 'OpenSans',
+        fontFamily: 10,
         fontSize: 22
       }
     };

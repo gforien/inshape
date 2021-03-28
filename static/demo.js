@@ -163,10 +163,11 @@ const imageURLToMiroShapes = async (url) => {
       style: {
         backgroundColor: dominantColorHexString,
         shapeType: shapeType,
-        fontFamily: 'OpenSans',
+        fontFamily: 10,
         fontSize: 22
       }
     };
+    
     if(isSurfaceRatioOK) {
       shapes.push(miroShape);
     }
@@ -181,11 +182,9 @@ const imageURLToMiroShapes = async (url) => {
 
     // Append to the HTML table
     if (isSurfaceRatioOK) {
-      console.log("append here")
       insertAfter(document.getElementById("table_anchor"), row);
     }
     else {
-      console.log("append there")
       insertAfter(document.getElementById("filtered_out_table_anchor"), row);
     }
   }
