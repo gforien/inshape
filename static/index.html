@@ -2,6 +2,26 @@
 <html lang="en">
   <head>
     <script src="https://miro.com/app/static/sdk.1.1.js"></script>
-    <script src="index.js"></script>
+    <script>
+    "use strict";
+    miro.onReady(() => {
+      miro.initialize({
+        extensionPoints: {
+          toolbar: {
+            title: 'InShapes v1',
+            toolbarSvgIcon: '<circle cx="12" cy="12" r="9" fill="red" fill-rule="evenodd" stroke="currentColor" stroke-width="2"></circle>',
+            librarySvgIcon: '<circle cx="12" cy="12" r="9" fill="red" fill-rule="evenodd" stroke="currentColor" stroke-width="2"></circle>',
+
+            // index.html serves only as the wrapper for opening modal.html
+            // then, the main function in executed in modal.html
+            onClick: async () => {
+              miro.board.ui.openModal("modal.html", { width: 400, height: 200 });
+            }
+
+          }
+        }
+      });
+    });
+    </script>
   </head>
 </html>
