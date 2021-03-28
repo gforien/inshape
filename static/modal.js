@@ -110,7 +110,10 @@ const imageURLToMiroShapes = async (url) => {
       height: roi.height,
       style: {
         backgroundColor: dominantColorHexString,
-        shapeType: shapeType}
+        shapeType: shapeType,
+        fontFamily: 'OpenSans',
+        fontSize: 22
+      }
     };
     shapes.push(miroShape);
   }
