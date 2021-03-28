@@ -10,15 +10,82 @@
     <!-- Tesseract.js : for Optical Character Recognition (OCR) -->
     <script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js'></script>
 
-    <!-- main script -->
+    <!-- Main JS script -->
     <script src="modal.js"></script>
+
+    <style type="text/css">
+    * {
+      font-family: Lato, sans-serif;
+    }
+    body {
+      padding: 0px 20px;
+    }
+    h1{
+      margin: 0px;
+    }
+    .row {
+      margin: 30px;
+    }
+    input {
+      width: 75%;
+      height: 20px;
+      font-size: 16px;
+      padding: 9px 16px 13px;
+      border-radius: 3px;
+      border: 1px solid rgb(205, 204, 215);
+      display: inline-block;
+    }
+    input:hover{
+      border-color: rgb(66, 98, 255);
+    }
+    button {
+      padding: 12px 24px 12px;
+      font-size: 16px;
+      font: OpenSans;
+      border-radius: 3px;
+      border: 0px;
+      width: 100px;
+    }
+    #ok_button {
+      color: white;
+      background-color: rgb(66, 98, 255);
+      opacity: 0.5;
+    }
+    #spinner {
+      visibility: hidden;
+      float: right;
+      display: inline-block;
+      height:28px;
+      width:28px;
+      margin:0px auto;
+      animation: rotation .6s infinite linear;
+      border:8px solid rgba(0,174,239,.15);
+      border-top:8px solid rgba(0,174,239,.8);
+      border-radius:100%;
+    }
+    @keyframes rotation {
+      from {transform: rotate(0deg);}
+      to {transform: rotate(359deg);}
+    }
+  </style>
   </head>
 
   <body>
-    <h1>Enter diagram URL</h1>
-    <input  id="url_input" type="text" />
-    <button id="ok_button">OK</button>
-    <button id="cancel_button">Cancel</button>
+
+
+    <div class="row">
+      <h1>Enter image URL</h1>
+    </div>
+    <div class="row">
+      <input  id="url_input" type="text" />
+      <div id="spinner"></div>
+    </div>
+    <div class="row">
+      <button type="button" id="ok_button" disabled>Ok</button>
+      <button type="button" id="cancel_button">Cancel</button>
+    </div>
+
+
   </body>
 
 </html>

@@ -124,9 +124,23 @@ const imageURLToMiroShapes = async (url) => {
 document.addEventListener("DOMContentLoaded", async () => {
 
   let urlInput = document.getElementById('url_input');
-
   let okButton = document.getElementById('ok_button');
+  let spinner = document.getElementById('spinner');
+  let cancelButton = document.getElementById('cancel_button');
+
+  urlInput.onchange = () => {
+    console.log('onChange called !');
+    okButton.disabled = false;
+    okButton.style.opacity = 1;
+  };
+
   okButton.onclick = async () => {
+    okButton.disabled = true;
+    okButton.style.opacity = 0.5;
+    okButton.innerHTML = "Processing...";
+    okButton.style.width = "140px";
+    spinner.style.visibility = "visible";
+
     console.log("Launch image processing");
     let json = await imageURLToMiroShapes(urlInput.value);
     console.log('Done !');
@@ -137,7 +151,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     miro.board.ui.closeModal();
   };
 
-  let cancelButton = document.getElementById('cancel_button');
   cancelButton.onclick = () => {
     console.log('Closing modal');
     miro.showNotification("cancelled")
