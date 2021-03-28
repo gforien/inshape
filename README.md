@@ -1,7 +1,10 @@
 # inshape🔴🟠🟡
+[![](https://img.shields.io/badge/open-GitHub%20Pages-blueviolet)](https://gforien.github.io/inshape/)
+[![](https://img.shields.io/badge/open-GitHub%20repo-blue)](https://githum.com/gforien/inshape)
 
 #### InShape is a Miro plugin which uses image processing and OCR for converting a PNG/JPEG diagram into coloured shapes and text.
-#### ☄ [Demo](https://gforien.github.io/inshape/static/demo.html?./images/osi.png)
+#### ☄ [Full Demo](https://gforien.github.io/inshape/static/demo.html?./images/osi.png)
+
 
 ## Stack
 ![](https://img.shields.io/badge/NodeJS-✓-blue)
@@ -14,8 +17,6 @@
 
 ![](./static/images/demo.gif)
 <!---
-    [![](https://img.shields.io/badge/open-Github%20Pages-blue)](https://gforien.github.io/inshape/)
-    [![](https://img.shields.io/badge/open-JSFiddle-blueviolet)](https://jsfiddle.net/to8ucfed/11/)
     [Edit in JSFiddle](https://jsfiddle.com/sdljdsfl)
 --->
 
