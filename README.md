@@ -3,7 +3,7 @@
 [![](https://img.shields.io/badge/open-Github%20Pages-blue)](https://gforien.github.io/inshape/)
 [![](https://img.shields.io/badge/open-JSFiddle-blueviolet)](https://jsfiddle.net/to8ucfed/11/)
 
-#### A Miro plugin using image processing and OCR for converting a PNG/JPEG diagram into coloured shapes and text
+#### A Miro plugin using image processing and OCR for converting a PNG/JPEG diagram into coloured shapes and text.
 #### ☄ [Live demo](https://gforien.github.io/inshape/static/index.html?./images/osi.png)
 
 ## Stack
@@ -13,6 +13,7 @@
 ![](https://img.shields.io/badge/image--js-✓-blue)
 ![](https://img.shields.io/badge/Tesseract.js-✓-blue)
 ![](https://img.shields.io/badge/Miro%20SDK-✓-blue)
+![](https://img.shields.io/badge/toastr.js-✓-blue)
 
 <!---
     ![](screenshot.gif)
